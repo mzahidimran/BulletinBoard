@@ -9,9 +9,9 @@ import UIKit
  * A view with rounded corners.
  */
 
-class RoundedView: UIView, RoundedViewProtocol {
+open class RoundedView: UIView, RoundedViewProtocol {
 
-    override class var layerClass: AnyClass {
+    override open class var layerClass: AnyClass {
         return ContinuousMaskLayer.self
     }
 
