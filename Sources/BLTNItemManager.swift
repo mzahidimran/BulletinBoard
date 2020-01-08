@@ -19,7 +19,7 @@ import UIKit
  * `BLTNItemManager` must only be used from the main thread.
  */
 
-@objc public class BLTNItemManager: NSObject {
+@objc open class BLTNItemManager: NSObject {
 
     /// Bulletin view controller.
     fileprivate var bulletinController: BulletinViewController!
@@ -33,7 +33,7 @@ import UIKit
      * Set this value before presenting the bulletin. Changing it after will have no effect.
      */
 
-    @objc public var backgroundColor: UIColor = {
+    @objc open var backgroundColor: UIColor = {
         if #available(iOS 13.0, *) {
             return .systemBackground
         } else {
@@ -47,7 +47,7 @@ import UIKit
      * Set this value before presenting the bulletin. Changing it after will have no effect.
      */
 
-    @objc public var backgroundViewStyle: BLTNBackgroundViewStyle = .dimmed
+    @objc open var backgroundViewStyle: BLTNBackgroundViewStyle = .dimmed
 
     // MARK: - Status Bar
 
@@ -57,7 +57,7 @@ import UIKit
      * Set this value before presenting the bulletin. Changing it after will have no effect.
      */
 
-    @objc public var statusBarAppearance: BLTNStatusBarAppearance = .automatic
+    @objc open var statusBarAppearance: BLTNStatusBarAppearance = .automatic
 
     /**
      * The style of status bar animation. Defaults to `.fade`.
@@ -65,7 +65,7 @@ import UIKit
      * Set this value before presenting the bulletin. Changing it after will have no effect.
      */
 
-    @objc public var statusBarAnimation: UIStatusBarAnimation = .fade
+    @objc open var statusBarAnimation: UIStatusBarAnimation = .fade
 
     /**
      * The home indicator for iPhone X should be hidden or not. Defaults to false.
@@ -73,7 +73,7 @@ import UIKit
      * Set this value before presenting the bulletin. Changing it after will have no effect.
      */
 
-    @objc public var hidesHomeIndicator: Bool = false
+    @objc open var hidesHomeIndicator: Bool = false
 
     // MARK: - Card Presentation
 
@@ -83,7 +83,7 @@ import UIKit
      * Set this value before presenting the bulletin. Changing it after will have no effect.
      */
 
-    @objc public var edgeSpacing: BLTNSpacing = .regular
+    @objc open var edgeSpacing: BLTNSpacing = .regular
 
     /**
      * The rounded corner radius of the bulletin card. Defaults to 12, and 36 on iPhone X.
@@ -91,7 +91,7 @@ import UIKit
      * Set this value before calling `prepare`. Changing it after will have no effect.
      */
 
-    @objc public var cardCornerRadius: NSNumber?
+    @objc open var cardCornerRadius: NSNumber?
 
     /**
      * Whether swipe to dismiss should be allowed. Defaults to true.
@@ -103,13 +103,13 @@ import UIKit
      * won't be available.
      */
 
-    @objc public var allowsSwipeInteraction: Bool = true
+    @objc open var allowsSwipeInteraction: Bool = true
     
     /**
      * Tells us if a bulletin is currently being shown. Defaults to false
      */
 
-    @objc public var isShowingBulletin: Bool { 
+    @objc open var isShowingBulletin: Bool {
         return bulletinController?.presentingViewController != nil
     }
 
@@ -135,7 +135,7 @@ import UIKit
      * - parameter rootItem: The first item to display.
      */
 
-    @objc public init(rootItem: BLTNItem) {
+    @objc open init(rootItem: BLTNItem) {
 
         self.rootItem = rootItem
         self.itemsStack = []
@@ -208,7 +208,7 @@ extension BLTNItemManager {
      */
 
     @objc(presentViewControllerAboveBulletin:animated:completion:)
-    public func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)? = nil) {
+    open func present(_ viewController: UIViewController, animated: Bool, completion: (() -> Void)? = nil) {
         assertIsPrepared()
         self.bulletinController.present(viewController, animated: animated, completion: completion)
     }
@@ -228,7 +228,7 @@ extension BLTNItemManager {
      */
 
     @discardableResult
-    public func withContentView<Result>(_ transform: (UIView) throws -> Result) rethrows -> Result {
+    open func withContentView<Result>(_ transform: (UIView) throws -> Result) rethrows -> Result {
 
         assertIsPrepared()
         assertIsMainThread()
@@ -259,7 +259,7 @@ extension BLTNItemManager {
      * Displaying the loading indicator does not change the height of the page or the current item.
      */
 
-    @objc public func displayActivityIndicator(color: UIColor? = nil) {
+    @objc open func displayActivityIndicator(color: UIColor? = nil) {
 
         assertIsPrepared()
         assertIsMainThread()
@@ -287,7 +287,7 @@ extension BLTNItemManager {
      * indicator and change the current item.
      */
 
-    @objc public func hideActivityIndicator() {
+    @objc open func hideActivityIndicator() {
 
         assertIsPrepared()
         assertIsMainThread()
@@ -303,7 +303,7 @@ extension BLTNItemManager {
      * - parameter item: The item to display.
      */
 
-    @objc public func push(item: BLTNItem) {
+    @objc open func push(item: BLTNItem) {
 
         assertIsPrepared()
         assertIsMainThread()
@@ -322,7 +322,7 @@ extension BLTNItemManager {
      * Removes the current item from the stack and displays the previous item.
      */
 
-    @objc public func popItem() {
+    @objc open func popItem() {
 
         assertIsPrepared()
         assertIsMainThread()
@@ -352,7 +352,7 @@ extension BLTNItemManager {
      * - parameter orDismiss: If true, dismiss bullein if not found. Otherwise popToRootItem()
      */
     
-    @objc public func popTo(item: BLTNItem, orDismiss: Bool) {
+    @objc open func popTo(item: BLTNItem, orDismiss: Bool) {
         
         assertIsPrepared()
         assertIsMainThread()
@@ -384,7 +384,7 @@ extension BLTNItemManager {
      * Removes all the items from the stack and displays the root item.
      */
 
-    @objc public func popToRootItem() {
+    @objc open func popToRootItem() {
 
         assertIsPrepared()
         assertIsMainThread()
@@ -409,7 +409,7 @@ extension BLTNItemManager {
      * - warning: If you call this method but `next` is `nil`, an exception will be raised.
      */
 
-    @objc public func displayNextItem() {
+    @objc open func displayNextItem() {
 
         guard let next = currentItem.next else {
             preconditionFailure("Calling BLTNItemManager.displayNextItem, but the current item has no nextItem.")
@@ -434,7 +434,7 @@ extension BLTNItemManager {
      */
 
     @objc(showBulletinAboveViewController:animated:completion:)
-    public func showBulletin(above presentingVC: UIViewController,
+    open func showBulletin(above presentingVC: UIViewController,
                                        animated: Bool = true,
                                      completion: (() -> Void)? = nil) {
 
@@ -467,7 +467,7 @@ extension BLTNItemManager {
      */
     
     @objc(showBulletinInApplication:animated:completion:)
-    public func showBulletin(in application: UIApplication,
+    open func showBulletin(in application: UIApplication,
                              animated: Bool = true,
                              completion: (() -> Void)? = nil) {
         assert(presentingWindow == nil, "Attempt to present a Bulletin on top of another Bulletin window. Make sure to dismiss any existing bulletin before calling this method.")
@@ -497,7 +497,7 @@ extension BLTNItemManager {
      */
 
     @objc(dismissBulletinAnimated:)
-    public func dismissBulletin(animated: Bool = true) {
+    open func dismissBulletin(animated: Bool = true) {
 
         assertIsPrepared()
         assertIsMainThread()
