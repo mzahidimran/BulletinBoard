@@ -22,7 +22,7 @@ import UIKit
 @objc open class BLTNItemManager: NSObject {
 
     /// Bulletin view controller.
-    fileprivate var bulletinController: BulletinViewController!
+    var bulletinController: BulletinViewController!
 
     // MARK: - Background
 
@@ -551,7 +551,7 @@ extension BLTNItemManager {
     }
 
     /// Refreshes the interface for the current item.
-    fileprivate func refreshCurrentItemInterface(elementsChanged: Bool = true) {
+    public func refreshCurrentItemInterface(elementsChanged: Bool = true) {
 
         bulletinController.isDismissable = false
         bulletinController.swipeInteractionController?.cancelIfNeeded()
