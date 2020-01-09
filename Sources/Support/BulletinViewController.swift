@@ -17,7 +17,7 @@ open class BulletinViewController: UIViewController, UIGestureRecognizerDelegate
     // MARK: - UI Elements
 
     /// The subview that contains the contents of the card.
-    let contentView = RoundedView()
+    @objc public let contentView = RoundedView()
 
     /// The button that allows the users to close the bulletin.
     let closeButton = BulletinCloseButton()
